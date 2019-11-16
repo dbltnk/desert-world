@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefTile: {fileID: 158291884959130354, guid: 0c05d2c7aec399f498db09671cb185b4, type: 3}
-  width: 1
-  height: 1
+  width: 5
+  height: 3
 --- !u!4 &311212960
 Transform:
   m_ObjectHideFlags: 0

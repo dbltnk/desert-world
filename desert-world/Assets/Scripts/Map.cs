@@ -156,7 +156,7 @@ public class Map : MonoBehaviour
                 }
             }
 
-            int numberOfNeighbours = neighbours.Where<>(); // TODO COUNT ACTUAL NON-NULLS
+            int numberOfNeighbours = neighbours.Where(n => n != null).Count();
             float averageHumidityOfNeighbours = sumHumidityOfNeighbours / numberOfNeighbours;
 
             t.Humidity -= (1 - averageHumidityOfNeighbours);
@@ -167,7 +167,7 @@ public class Map : MonoBehaviour
     public void SetupHumidity () {
         foreach (Transform c in transform) {
             Tile t = c.GetComponent<Tile>();
-            t.Humidity = Random.Range(1f, 1f);
+            t.Humidity = Random.Range(0.9f, 1f);
         }
     }
 }

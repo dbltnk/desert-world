@@ -29,4 +29,8 @@ public class Tile : MonoBehaviour
         Color c = rend.color;
         rend.color = new Color(c.r, c.g, c.b, Humidity);
     }
+
+    public void WaterTile() {
+        Humidity = 1f;
+    }
 }

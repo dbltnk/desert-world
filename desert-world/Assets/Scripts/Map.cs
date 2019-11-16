@@ -48,6 +48,34 @@ public class Map : MonoBehaviour
         return new Vector2Int(t.X, t.Y);
     }
 
+    public Tile GetTileFromScreenSpace (Vector2 pos) {
+        Tile tile = null;
+        bool found = false;
+
+        float xMin = 0f;
+        float xMax = 0f;
+        float yMin = 0f;
+        float yMax = 0f;
+
+        foreach (Transform t in transform) {
+            if (t.position.x < xMin) xMin = t.position.x;
+            if (t.position.x > xMax) xMax = t.position.x;
+            if (t.position.y < yMin) yMin = t.position.y;
+            if (t.position.y > yMax) yMax = t.position.y;
+        }
+
+        int x = UTK.Generic.MapIntoRange(pos.x, xMin, width * -1f, xMax, width);
+        int y = UTK.Generic.MapIntoRange(pos.y, yMin, height * -1f, yMax, height);
+
+        foreach (Tile t in Tiles) {
+            if (t.X ==x && t.Y == y) {
+                tile = t;
+                found = true;
+            }
+        }
+        if (found) return tile; else return null;
+    }
+
     public List<Tile> GetNeighbours (Tile t) {
         if (t.Neighbours.Count == 0) {
             FindNeightbours(t);

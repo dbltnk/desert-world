@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 311212960}
   - component: {fileID: 311212959}
   m_Layer: 0
-  m_Name: MapRoot
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefTile: {fileID: 158291884959130354, guid: 0c05d2c7aec399f498db09671cb185b4, type: 3}
-  width: 10
-  height: 10
+  width: 3
+  height: 2
   Tiles: []
 --- !u!4 &311212960
 Transform:
@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 1426896224}
   - component: {fileID: 1426896223}
   - component: {fileID: 1426896225}
+  - component: {fileID: 1426896226}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -680,6 +681,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
+--- !u!114 &1426896226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426896222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1c4a8f46b810b4da0c6bf04b776309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Map: {fileID: 311212959}
 --- !u!1 &1625334420
 GameObject:
   m_ObjectHideFlags: 0

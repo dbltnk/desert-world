@@ -8,6 +8,7 @@ public class Map : MonoBehaviour
     public GameObject PrefTile;
     public int width;
     public int height;
+    public List<Tile> Tiles;
 
     // Start is called before the first frame update
     void Start()
@@ -25,13 +26,16 @@ public class Map : MonoBehaviour
                 t.transform.SetPositionAndRotation(new Vector2(w, h), Quaternion.identity);
             }
         }
+        foreach (Transform c in transform) {
+            Tile t = c.GetComponent<Tile>();
+            Tiles.Add(t);
+        }
     }
 
     Tile GetTileFromCoords(int x, int y) {
         Tile tile = null;
         bool found = false;
-        foreach (Transform c in transform) {
-            Tile t = c.GetComponent<Tile>();
+        foreach (Tile t in Tiles) {
             if (t.X == x && t.Y == y) {
                 tile = t;
                 found = true;
@@ -44,7 +48,14 @@ public class Map : MonoBehaviour
         return new Vector2Int(t.X, t.Y);
     }
 
-    public List<Tile> GetNeightbours (Tile t) {
+    public List<Tile> GetNeighbours (Tile t) {
+        if (t.Neighbours.Count == 0) {
+            FindNeightbours(t);
+        }
+        return t.Neighbours;
+    }
+
+    public void FindNeightbours (Tile t) {
         List<Tile> neighbours = new List<Tile>();
 
         Tile up;
@@ -141,14 +152,12 @@ public class Map : MonoBehaviour
         }
         neighbours.Add(upleft);
 
-        return neighbours;
+        t.Neighbours = neighbours;
     }
 
     public void UpdateHumidityOnce() {
-        foreach (Transform c in transform) {
-            Tile t = c.GetComponent<Tile>();
-
-            List<Tile> neighbours = GetNeightbours(t);
+        foreach (Tile t in Tiles) {
+            List<Tile> neighbours = GetNeighbours(t);
             float sumHumidityOfNeighbours = 0f;
             for (int i = 0; i < neighbours.Count; i++) {
                 if (neighbours[i] != null) {
@@ -167,7 +176,8 @@ public class Map : MonoBehaviour
     public void SetupHumidity () {
         foreach (Transform c in transform) {
             Tile t = c.GetComponent<Tile>();
-            t.Humidity = Random.Range(0.9f, 1f);
+            t.Humidity = Random.Range(0.98f, 1f);
+            FindNeightbours(t);
         }
     }
 }

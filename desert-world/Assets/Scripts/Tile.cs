@@ -7,16 +7,16 @@ public class Tile : MonoBehaviour
 {
     public int X;
     public int Y;
-    public Sprite spriteBarren;
-    public Sprite spriteFertile;
     TextMesh debugTextPosition;
     TextMesh debugTextHumidity;
     public float Humidity;
+    SpriteRenderer rend;
+    public List<Tile> Neighbours;
 
     // Start is called before the first frame update
     void Start ()
     {
-        GetComponent<SpriteRenderer>().sprite = spriteBarren;
+        rend = transform.Find("Fertile").GetComponent<SpriteRenderer>();
         debugTextPosition = transform.Find("Position").GetComponentInChildren<TextMesh>();
         debugTextHumidity = transform.Find("Humidity").GetComponentInChildren<TextMesh>();
     }
@@ -26,5 +26,7 @@ public class Tile : MonoBehaviour
     {
         debugTextPosition.text = $"{X}|{Y}";
         debugTextHumidity.text = Humidity.ToString("F2");
+        Color c = rend.color;
+        rend.color = new Color(c.r, c.g, c.b, Humidity);
     }
 }

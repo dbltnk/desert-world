@@ -251,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefTile: {fileID: 158291884959130354, guid: 0c05d2c7aec399f498db09671cb185b4, type: 3}
   width: 3
-  height: 2
+  height: 3
   Tiles: []
 --- !u!4 &311212960
 Transform:

@@ -33,6 +33,12 @@ public class Map : MonoBehaviour
     }
 
     Tile GetTileFromCoords(int x, int y) {
+
+        while (x > width) x -= 2 * width + 1;
+        while (x < width * -1) x += 2 * width + 1;
+        while (y > height) y -= 2 * height + 1;
+        while (y < height * -1) y += 2 * height + 1;
+
         Tile tile = null;
         bool found = false;
         foreach (Tile t in Tiles) {
@@ -52,20 +58,20 @@ public class Map : MonoBehaviour
         Tile tile = null;
         bool found = false;
 
-        float xMin = 0f;
+        float xMin = 999999f;
         float xMax = 0f;
-        float yMin = 0f;
+        float yMin = 999999f;
         float yMax = 0f;
 
-        foreach (Transform t in transform) {
-            if (t.position.x < xMin) xMin = t.position.x;
-            if (t.position.x > xMax) xMax = t.position.x;
-            if (t.position.y < yMin) yMin = t.position.y;
-            if (t.position.y > yMax) yMax = t.position.y;
+        foreach (RectTransform t in transform) {
+            if (t.anchoredPosition.x < xMin) xMin = t.anchoredPosition.x;
+            if (t.anchoredPosition.x > xMax) xMax = t.anchoredPosition.x;
+            if (t.anchoredPosition.y < yMin) yMin = t.anchoredPosition.y;
+            if (t.anchoredPosition.y > yMax) yMax = t.anchoredPosition.y;
         }
 
-        int x = UTK.Generic.MapIntoRange(pos.x, xMin, width * -1f, xMax, width);
-        int y = UTK.Generic.MapIntoRange(pos.y, yMin, height * -1f, yMax, height);
+        float x = UTK.Generic.MapIntoRange(pos.x, xMin, width * -1f, xMax, width);
+        float y = UTK.Generic.MapIntoRange(pos.y, yMin, yMax, height * -1f, height);
 
         foreach (Tile t in Tiles) {
             if (t.X ==x && t.Y == y) {
@@ -84,103 +90,29 @@ public class Map : MonoBehaviour
     }
 
     public void FindNeightbours (Tile t) {
-        List<Tile> neighbours = new List<Tile>();
+        Tile up = GetTileFromCoords(t.X, t.Y + 1);
+        t.Neighbours.Add(up);
 
-        Tile up;
-        if (GetTileFromCoords(t.X, t.Y + 1) == null) {
-            up = GetTileFromCoords(t.X, t.Y * -1);
-        }
-        else {
-            up = GetTileFromCoords(t.X, t.Y + 1);
-        }
-        neighbours.Add(up);
+        Tile down = GetTileFromCoords(t.X, t.Y - 1);
+        t.Neighbours.Add(down);
 
-        Tile down;
-        if (GetTileFromCoords(t.X, t.Y - 1) == null) {
-            down = GetTileFromCoords(t.X, t.Y * -1);
-        } else {
-            down = GetTileFromCoords(t.X, t.Y - 1);
-        }
-        neighbours.Add(down);
+        Tile left = GetTileFromCoords(t.X - 1, t.Y);
+        t.Neighbours.Add(left);
 
-        Tile left;
-        if (GetTileFromCoords(t.X - 1, t.Y) == null) {
-            left = GetTileFromCoords(t.X * -1, t.Y);
-        } else {
-            left = GetTileFromCoords(t.X - 1, t.Y);
-        }
-        neighbours.Add(left);
+        Tile right = GetTileFromCoords(t.X + 1, t.Y);
+        t.Neighbours.Add(right);
 
-        Tile right;
-        if (GetTileFromCoords(t.X + 1, t.Y) == null) {
-            right = GetTileFromCoords(t.X * -1, t.Y);
-        } else {
-            right = GetTileFromCoords(t.X + 1, t.Y);
-        }
-        neighbours.Add(right);
+        Tile upright = GetTileFromCoords(t.X + 1, t.Y + 1);
+        t.Neighbours.Add(upright);
 
-        Tile upright;
-        if (GetTileFromCoords(t.X + 1, t.Y + 1) == null) {
-            // is corner tile
-            if(t.X == width && t.Y == height) {
-                upright = GetTileFromCoords(t.X * -1, t.Y * -1);
-            }
-            // is not corner tile
-            else {
-                upright = GetTileFromCoords(t.X + 1, t.Y * -1);
-                // TODO: FIX. This does not work for most tiles, such as downright corner
-            }
-        } else {
-            upright = GetTileFromCoords(t.X + 1, t.Y + 1);
-        }
-        neighbours.Add(upright);
+        Tile downright = GetTileFromCoords(t.X + 1, t.Y - 1);
+        t.Neighbours.Add(downright);
 
-        Tile downright;
-        if (GetTileFromCoords(t.X + 1, t.Y - 1) == null) {
-            // is corner tile
-            if (t.X == width && t.Y == height * -1) {
-                downright = GetTileFromCoords(t.X * -1, t.Y * -1);
-            }
-            // is not corner tile
-            else {
-                downright = GetTileFromCoords(t.X + 1, t.Y * -1);
-            }
-        } else {
-            downright = GetTileFromCoords(t.X + 1, t.Y - 1);
-        }
-        neighbours.Add(downright);
+        Tile upleft = GetTileFromCoords(t.X - 1, t.Y + 1);
+        t.Neighbours.Add(upleft);
 
-        Tile upleft;
-        if (GetTileFromCoords(t.X - 1, t.Y + 1) == null) {
-            // is corner tile
-            if (t.X == width * -1 && t.Y == height) {
-                upleft = GetTileFromCoords(t.X * -1, t.Y * -1);
-            }
-            // is not corner tile
-            else {
-                upleft = GetTileFromCoords(t.X - 1, t.Y * -1);
-            }
-        } else {
-            upleft = GetTileFromCoords(t.X - 1, t.Y + 1);
-        }
-        neighbours.Add(upleft);
-
-        Tile downleft;
-        if (GetTileFromCoords(t.X + 1, t.Y - 1) == null) {
-            // is corner tile
-            if (t.X == width * -1 && t.Y == height * -1) {
-                downleft = GetTileFromCoords(t.X * -1, t.Y * -1);
-            }
-            // is not corner tile
-            else {
-                downleft = GetTileFromCoords(t.X - 1, t.Y * -1);
-            }
-        } else {
-            downleft = GetTileFromCoords(t.X + 1, t.Y - 1);
-        }
-        neighbours.Add(upleft);
-
-        t.Neighbours = neighbours;
+        Tile downleft = GetTileFromCoords(t.X + 1, t.Y - 1);
+        t.Neighbours.Add(upleft);
     }
 
     public void UpdateHumidityOnce() {

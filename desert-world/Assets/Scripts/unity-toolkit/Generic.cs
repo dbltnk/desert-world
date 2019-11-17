@@ -1,6 +1,6 @@
 ﻿namespace UTK {
 
-    public static class Generic : object {
+    public static class Generic {
 
         // Source: https://forum.unity.com/threads/re-map-a-number-from-one-range-to-another.119437/
         public static float MapIntoRange (float value, float from1, float to1, float from2, float to2) {

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2504419406939156419}
   - component: {fileID: 2504419406939156420}
+  - component: {fileID: 1758553523856066047}
   m_Layer: 0
   m_Name: Boundary
   m_TagString: Untagged
@@ -49,3 +50,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.39780998}
   m_Center: {x: 0, y: 0, z: 0.028340578}
+--- !u!114 &1758553523856066047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2504419406939156421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd2d08790e48d041bbd4ee0515f46f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

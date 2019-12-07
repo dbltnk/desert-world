@@ -5,10 +5,12 @@ using UnityEngine;
 public class TileGetter : MonoBehaviour
 {
     public Tile TileCurrent;
+    public Boundary BoundaryCurrent;
+    Movement mv;
 
     void Start()
     {
-        
+        mv = GetComponent<Movement>();
     }
 
     void Update() {
@@ -25,8 +27,12 @@ public class TileGetter : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * hit.distance, Color.yellow);
             Debug.Log("Did Hit");
             Debug.Log(hit.transform.name);
-     
             if (hit.transform.gameObject.GetComponent<Tile>() != null) TileCurrent = hit.transform.gameObject.GetComponent<Tile>();
+            if (hit.transform.GetComponent<Boundary>() != null) {
+                BoundaryCurrent = hit.transform.gameObject.GetComponent<Boundary>();
+                mv.WrapAround(TileCurrent, BoundaryCurrent);
+                BoundaryCurrent = null;
+            }    
         } else {
             Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * 1000, Color.blue);
             Debug.Log("Did not Hit");

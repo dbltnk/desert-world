@@ -38,18 +38,26 @@ public class Map : MonoBehaviour
         GameObject boundRight = Instantiate(PrefBoundary, transform);
         boundRight.transform.position = new Vector2(transform.position.x + width + 1f, 0);
         boundRight.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 2f, 1f);
+        boundRight.name = "BoundRight";
+        boundRight.GetComponent<Boundary>().Direction = Boundary.Directions.East;
 
         GameObject boundLeft = Instantiate(PrefBoundary, transform);
         boundLeft.transform.position = new Vector2(transform.position.x - width - 1f, 0);
         boundLeft.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 2f, 1f);
+        boundLeft.name = "BoundLeft";
+        boundLeft.GetComponent<Boundary>().Direction = Boundary.Directions.West;
 
         GameObject boundLower = Instantiate(PrefBoundary, transform);
         boundLower.transform.position = new Vector2(0, transform.position.y - height - 1f);
         boundLower.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 2f, 1f, 1f);
+        boundLower.name = "BoundLower";
+        boundLower.GetComponent<Boundary>().Direction = Boundary.Directions.South;
 
         GameObject boundUpper = Instantiate(PrefBoundary, transform);
         boundUpper.transform.position = new Vector2(0, transform.position.y + height + 1f);
         boundUpper.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 2f, 1f, 1f);
+        boundUpper.name = "BoundUpper";
+        boundUpper.GetComponent<Boundary>().Direction = Boundary.Directions.North;
     }
 
     Tile GetTileFromCoords(int x, int y) {
@@ -104,7 +112,7 @@ public class Map : MonoBehaviour
         Debug.LogError("GetTileFromScreenSpace does not really work yet.");
     }
 
-    public List<Tile> GetNeighbours (Tile t) {
+    public Dictionary<Tile.Directions, Tile> GetNeighbours (Tile t) {
         if (t.Neighbours.Count == 0) {
             FindNeightbours(t);
         }
@@ -113,41 +121,39 @@ public class Map : MonoBehaviour
 
     public void FindNeightbours (Tile t) {
         Tile up = GetTileFromCoords(t.X, t.Y + 1);
-        t.Neighbours.Add(up);
+        t.Neighbours.Add(Tile.Directions.North, up);
 
         Tile down = GetTileFromCoords(t.X, t.Y - 1);
-        t.Neighbours.Add(down);
+        t.Neighbours.Add(Tile.Directions.South, down);
 
         Tile left = GetTileFromCoords(t.X - 1, t.Y);
-        t.Neighbours.Add(left);
+        t.Neighbours.Add(Tile.Directions.West, left);
 
         Tile right = GetTileFromCoords(t.X + 1, t.Y);
-        t.Neighbours.Add(right);
+        t.Neighbours.Add(Tile.Directions.East, right);
 
         Tile upright = GetTileFromCoords(t.X + 1, t.Y + 1);
-        t.Neighbours.Add(upright);
+        t.Neighbours.Add(Tile.Directions.NorthEast, upright);
 
         Tile downright = GetTileFromCoords(t.X + 1, t.Y - 1);
-        t.Neighbours.Add(downright);
+        t.Neighbours.Add(Tile.Directions.SouthEast, downright);
 
         Tile upleft = GetTileFromCoords(t.X - 1, t.Y + 1);
-        t.Neighbours.Add(upleft);
+        t.Neighbours.Add(Tile.Directions.NorthWest, upleft);
 
         Tile downleft = GetTileFromCoords(t.X + 1, t.Y - 1);
-        t.Neighbours.Add(upleft);
+        t.Neighbours.Add(Tile.Directions.SouthWest, upleft);
     }
 
     public void UpdateHumidityOnce() {
         foreach (Tile t in Tiles) {
-            List<Tile> neighbours = GetNeighbours(t);
+            Dictionary <Tile.Directions, Tile> neighbours = GetNeighbours(t);
             float sumHumidityOfNeighbours = 0f;
-            for (int i = 0; i < neighbours.Count; i++) {
-                if (neighbours[i] != null) {
-                    sumHumidityOfNeighbours += neighbours[i].Humidity;
-                }
+            foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
+                sumHumidityOfNeighbours += n.Value.Humidity;
             }
 
-            int numberOfNeighbours = neighbours.Where(n => n != null).Count();
+            int numberOfNeighbours = neighbours.Count;
             float averageHumidityOfNeighbours = sumHumidityOfNeighbours / numberOfNeighbours;
 
             t.Humidity -= (1 - averageHumidityOfNeighbours);
@@ -158,8 +164,10 @@ public class Map : MonoBehaviour
     public void SetupHumidity () {
         foreach (Transform c in transform) {
             Tile t = c.GetComponent<Tile>();
-            t.Humidity = Random.Range(0.98f, 1f);
-            FindNeightbours(t);
+            if (t != null) {
+                t.Humidity = Random.Range(0.98f, 1f);
+                GetNeighbours(t);
+            }
         }
     }
 }

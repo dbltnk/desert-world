@@ -11,7 +11,8 @@ public class Tile : MonoBehaviour
     TextMesh debugTextHumidity;
     public float Humidity;
     SpriteRenderer rend;
-    public List<Tile> Neighbours;
+    public enum Directions { North, East, South, West, NorthEast, SouthEast, NorthWest, SouthWest};
+    public Dictionary<Directions, Tile> Neighbours = new Dictionary<Directions, Tile>();
 
     // Start is called before the first frame update
     void Start ()

@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a38af2b66cac054faf2f905f8f14a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dampTime: 0.15
+  dampTime: 0
   target: {fileID: 1426896224}
 --- !u!20 &519420031
 Camera:
@@ -711,6 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileCurrent: {fileID: 0}
+  BoundaryCurrent: {fileID: 0}
 --- !u!1 &1625334420
 GameObject:
   m_ObjectHideFlags: 0

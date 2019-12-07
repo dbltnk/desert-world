@@ -8,9 +8,9 @@ public class WateringCan : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            //Map.GetTileFromScreenSpace(transform.position).WaterTile();
-            print("lala");
+        if (Input.GetKey(KeyCode.Space)) {
+            TileGetter tg = GetComponent<TileGetter>();
+            tg.TileCurrent.WaterTile();
         }
     }
 }

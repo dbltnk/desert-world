@@ -37,25 +37,25 @@ public class Map : MonoBehaviour
 
         GameObject boundRight = Instantiate(PrefBoundary, transform);
         boundRight.transform.position = new Vector2(transform.position.x + width + 1f, 0);
-        boundRight.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 2f, 1f);
+        boundRight.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 1f, 1f);
         boundRight.name = "BoundRight";
         boundRight.GetComponent<Boundary>().Direction = Boundary.Directions.East;
 
         GameObject boundLeft = Instantiate(PrefBoundary, transform);
         boundLeft.transform.position = new Vector2(transform.position.x - width - 1f, 0);
-        boundLeft.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 2f, 1f);
+        boundLeft.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 1f, 1f);
         boundLeft.name = "BoundLeft";
         boundLeft.GetComponent<Boundary>().Direction = Boundary.Directions.West;
 
         GameObject boundLower = Instantiate(PrefBoundary, transform);
         boundLower.transform.position = new Vector2(0, transform.position.y - height - 1f);
-        boundLower.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 2f, 1f, 1f);
+        boundLower.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 1f, 1f, 1f);
         boundLower.name = "BoundLower";
         boundLower.GetComponent<Boundary>().Direction = Boundary.Directions.South;
 
         GameObject boundUpper = Instantiate(PrefBoundary, transform);
         boundUpper.transform.position = new Vector2(0, transform.position.y + height + 1f);
-        boundUpper.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 2f, 1f, 1f);
+        boundUpper.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 1f, 1f, 1f);
         boundUpper.name = "BoundUpper";
         boundUpper.GetComponent<Boundary>().Direction = Boundary.Directions.North;
     }

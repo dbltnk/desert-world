@@ -18,26 +18,28 @@ public class Movement : MonoBehaviour {
 
     public void WrapAround (Tile tileCurrent, Boundary boundaryCurrent) {
         Dictionary<Tile.Directions, Tile> neighbours = Map.GetNeighbours(tileCurrent);
+        float dX = transform.position.x % 1f;
+        float dY = transform.position.y % 1f;
 
         switch (boundaryCurrent.Direction) {
             case Boundary.Directions.East:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.East) TeleportToTile(n.Value, -0.5f, 0f);
+                    if (n.Key == Tile.Directions.East) TeleportToTile(n.Value, -0.5f, dY);
                 }
                 break;
             case Boundary.Directions.West:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.West) TeleportToTile(n.Value, 0.5f, 0f);
+                    if (n.Key == Tile.Directions.West) TeleportToTile(n.Value, 0.5f, dY);
                 }
                 break;
             case Boundary.Directions.South:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.South) TeleportToTile(n.Value, 0f, 0.5f);
+                    if (n.Key == Tile.Directions.South) TeleportToTile(n.Value, dX, 0.5f);
                 }
                 break;
             case Boundary.Directions.North:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.North) TeleportToTile(n.Value, 0f, -0.5f);
+                    if (n.Key == Tile.Directions.North) TeleportToTile(n.Value, dX, -0.5f);
                 }
                 break;
             default:

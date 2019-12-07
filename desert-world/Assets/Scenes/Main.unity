@@ -251,8 +251,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefTile: {fileID: 158291884959130354, guid: 0c05d2c7aec399f498db09671cb185b4, type: 3}
   width: 3
-  height: 3
+  height: 2
   Tiles: []
+  PrefBoundary: {fileID: 2504419406939156421, guid: e3b9af0b1422c5f489a5d4da2b18d223,
+    type: 3}
 --- !u!4 &311212960
 Transform:
   m_ObjectHideFlags: 0
@@ -261,7 +263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311212958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.4268007, y: 1.1877296, z: -2.6652853}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -598,6 +600,7 @@ GameObject:
   - component: {fileID: 1426896223}
   - component: {fileID: 1426896225}
   - component: {fileID: 1426896226}
+  - component: {fileID: 1426896227}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -662,7 +665,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426896222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -694,6 +697,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Map: {fileID: 311212959}
+--- !u!114 &1426896227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426896222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ff3a797dc202e4eaea5562f5f79ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TileCurrent: {fileID: 0}
 --- !u!1 &1625334420
 GameObject:
   m_ObjectHideFlags: 0

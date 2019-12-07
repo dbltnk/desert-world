@@ -9,7 +9,7 @@ public class WateringCan : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Map.GetTileFromScreenSpace(transform.position).WaterTile();
+            //Map.GetTileFromScreenSpace(transform.position).WaterTile();
             print("lala");
         }
     }

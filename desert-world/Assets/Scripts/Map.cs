@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class Map : MonoBehaviour
     public int width;
     public int height;
     public List<Tile> Tiles;
+    public GameObject PrefBoundary;
 
     // Start is called before the first frame update
-    void Start()
+    void Start ()
     {
         CreateMap();
     }
@@ -30,6 +32,24 @@ public class Map : MonoBehaviour
             Tile t = c.GetComponent<Tile>();
             Tiles.Add(t);
         }
+
+        // ADD BOUNDARIES
+
+        GameObject boundRight = Instantiate(PrefBoundary, transform);
+        boundRight.transform.position = new Vector2(transform.position.x + width + 1f, 0);
+        boundRight.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 2f, 1f);
+
+        GameObject boundLeft = Instantiate(PrefBoundary, transform);
+        boundLeft.transform.position = new Vector2(transform.position.x - width - 1f, 0);
+        boundLeft.GetComponent<BoxCollider>().size = new Vector3(1f, height * 2f + 2f, 1f);
+
+        GameObject boundLower = Instantiate(PrefBoundary, transform);
+        boundLower.transform.position = new Vector2(0, transform.position.y - height - 1f);
+        boundLower.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 2f, 1f, 1f);
+
+        GameObject boundUpper = Instantiate(PrefBoundary, transform);
+        boundUpper.transform.position = new Vector2(0, transform.position.y + height + 1f);
+        boundUpper.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 2f, 1f, 1f);
     }
 
     Tile GetTileFromCoords(int x, int y) {
@@ -54,7 +74,7 @@ public class Map : MonoBehaviour
         return new Vector2Int(t.X, t.Y);
     }
 
-    public Tile GetTileFromScreenSpace (Vector2 pos) {
+    public void GetTileFromScreenSpace (Vector2 pos) {
         Tile tile = null;
         bool found = false;
 
@@ -79,7 +99,9 @@ public class Map : MonoBehaviour
                 found = true;
             }
         }
-        if (found) return tile; else return null;
+        //if (found) return tile; else return null;
+
+        Debug.LogError("GetTileFromScreenSpace does not really work yet.");
     }
 
     public List<Tile> GetNeighbours (Tile t) {

@@ -22,22 +22,22 @@ public class Movement : MonoBehaviour {
         switch (boundaryCurrent.Direction) {
             case Boundary.Directions.East:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.East) TeleportToTile(n.Value);
+                    if (n.Key == Tile.Directions.East) TeleportToTile(n.Value, -0.5f, 0f);
                 }
                 break;
             case Boundary.Directions.West:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.West) TeleportToTile(n.Value);
+                    if (n.Key == Tile.Directions.West) TeleportToTile(n.Value, 0.5f, 0f);
                 }
                 break;
             case Boundary.Directions.South:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.South) TeleportToTile(n.Value);
+                    if (n.Key == Tile.Directions.South) TeleportToTile(n.Value, 0f, 0.5f);
                 }
                 break;
             case Boundary.Directions.North:
                 foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
-                    if (n.Key == Tile.Directions.North) TeleportToTile(n.Value);
+                    if (n.Key == Tile.Directions.North) TeleportToTile(n.Value, 0f, -0.5f);
                 }
                 break;
             default:
@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour {
         }
     }
 
-    public void TeleportToTile (Tile t) {
-        transform.position = new Vector3(t.X, t.Y, transform.position.z);
+    public void TeleportToTile (Tile t, float DeltaX = 0f, float DeltaY = 0f) {
+        transform.position = new Vector3(t.X + DeltaX, t.Y + DeltaY, transform.position.z);
     }
 }

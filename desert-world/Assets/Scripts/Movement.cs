@@ -18,8 +18,8 @@ public class Movement : MonoBehaviour {
 
     public void WrapAround (Tile tileCurrent, Boundary boundaryCurrent) {
         Dictionary<Tile.Directions, Tile> neighbours = Map.GetNeighbours(tileCurrent);
-        float dX = transform.position.x % 1f;
-        float dY = transform.position.y % 1f;
+        float dX = transform.position.x - Mathf.RoundToInt(transform.position.x);
+        float dY = transform.position.y - Mathf.RoundToInt(transform.position.y);
 
         switch (boundaryCurrent.Direction) {
             case Boundary.Directions.East:

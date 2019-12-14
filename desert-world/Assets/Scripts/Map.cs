@@ -12,6 +12,9 @@ public class Map : MonoBehaviour
     public List<Tile> Tiles;
     public GameObject PrefBoundary;
     public float EvaporationRate;
+    public int InitialPlantCount;
+    public GameObject PrefPlant;
+    public List<Plant> Plants;
 
     // Start is called before the first frame update
     void Start ()
@@ -59,6 +62,30 @@ public class Map : MonoBehaviour
         boundUpper.GetComponent<BoxCollider>().size = new Vector3(width * 2f + 1f, 1f, 1f);
         boundUpper.name = "BoundUpper";
         boundUpper.GetComponent<Boundary>().Direction = Boundary.Directions.North;
+
+        // SPAWN PLANTS
+        for (int i = 0; i < InitialPlantCount;i++) {
+            SpawnPlant();
+        }
+        foreach (Plant p in Plants) p.Age = Random.Range(0, 5);
+    }
+
+    public void SpawnPlant() {
+        GameObject p = Instantiate(PrefPlant);
+        p.transform.SetParent(transform, false);
+        float x = Random.Range((float)-width - 0.5f, (float)width + 0.5f);
+        float y = Random.Range((float)-height - 0.5f, (float)height + 0.5f);
+        p.transform.position = new Vector3(x, y, -0.1f);
+        Plants.Add(p.GetComponentInChildren<Plant>());
+    }
+
+    public void SpawnPlant (Transform origin, float range) {
+        GameObject p = Instantiate(PrefPlant);
+        p.transform.SetParent(transform, false);
+        float x = origin.transform.position.x + Random.Range(-range, range);
+        float y = origin.transform.position.y + Random.Range(-range, range);
+        p.transform.position = new Vector3(x, y, -0.1f);
+        Plants.Add(p.GetComponentInChildren<Plant>());
     }
 
     Tile GetTileFromCoords(int x, int y) {
@@ -148,7 +175,6 @@ public class Map : MonoBehaviour
 
     public void UpdateHumidityOnce() {
         foreach (Tile t in Tiles) {
-
             Dictionary <Tile.Directions, Tile> neighbours = GetNeighbours(t);
             float sumHumidityOfNeighbours = 0f;
             foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
@@ -161,6 +187,10 @@ public class Map : MonoBehaviour
             t.Humidity = (t.Humidity + averageHumidityOfNeighbours) / 2;
             t.Humidity -= EvaporationRate;
             t.Humidity = Mathf.Clamp01(t.Humidity);
+        }
+
+        for (int i = 0; i < Plants.Count; i++) {
+            Plants[i].Step();
         }
     }
 

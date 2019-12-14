@@ -24,9 +24,9 @@ public class TileGetter : MonoBehaviour
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(transform.forward), out hit, Mathf.Infinity)) {
-            Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
-            Debug.Log(hit.transform.name);
+            //Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * hit.distance, Color.yellow);
+            //Debug.Log("Did Hit");
+            //Debug.Log(hit.transform.name);
             if (hit.transform.gameObject.GetComponent<Tile>() != null) TileCurrent = hit.transform.gameObject.GetComponent<Tile>();
             if (hit.transform.GetComponent<Boundary>() != null) {
                 BoundaryCurrent = hit.transform.gameObject.GetComponent<Boundary>();
@@ -34,8 +34,8 @@ public class TileGetter : MonoBehaviour
                 BoundaryCurrent = null;
             }    
         } else {
-            Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * 1000, Color.blue);
-            Debug.Log("Did not Hit");
+            //Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * 1000, Color.blue);
+            //Debug.Log("Did not Hit");
         }
     }
 }

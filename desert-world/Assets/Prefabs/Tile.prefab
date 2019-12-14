@@ -56,7 +56,6 @@ MonoBehaviour:
   X: 0
   Y: 0
   Humidity: 0
-  Neighbours: []
 --- !u!65 &569012592802334809
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,7 +166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5844931715473939022
 Transform:
   m_ObjectHideFlags: 0
@@ -267,7 +266,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7684777175561393711}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7971074769944419573}
@@ -339,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3287536516954529523
 Transform:
   m_ObjectHideFlags: 0

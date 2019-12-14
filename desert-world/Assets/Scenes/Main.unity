@@ -411,6 +411,7 @@ MonoBehaviour:
   Tiles: []
   PrefBoundary: {fileID: 2504419406939156421, guid: e3b9af0b1422c5f489a5d4da2b18d223,
     type: 3}
+  EvaporationRate: 0.02
 --- !u!4 &311212960
 Transform:
   m_ObjectHideFlags: 0

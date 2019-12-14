@@ -11,6 +11,7 @@ public class Map : MonoBehaviour
     public int height;
     public List<Tile> Tiles;
     public GameObject PrefBoundary;
+    public float EvaporationRate;
 
     // Start is called before the first frame update
     void Start ()
@@ -141,12 +142,13 @@ public class Map : MonoBehaviour
         Tile upleft = GetTileFromCoords(t.X - 1, t.Y + 1);
         t.Neighbours.Add(Tile.Directions.NorthWest, upleft);
 
-        Tile downleft = GetTileFromCoords(t.X + 1, t.Y - 1);
-        t.Neighbours.Add(Tile.Directions.SouthWest, upleft);
+        Tile downleft = GetTileFromCoords(t.X - 1, t.Y - 1);
+        t.Neighbours.Add(Tile.Directions.SouthWest, downleft);
     }
 
     public void UpdateHumidityOnce() {
         foreach (Tile t in Tiles) {
+
             Dictionary <Tile.Directions, Tile> neighbours = GetNeighbours(t);
             float sumHumidityOfNeighbours = 0f;
             foreach (KeyValuePair<Tile.Directions, Tile> n in neighbours) {
@@ -156,7 +158,8 @@ public class Map : MonoBehaviour
             int numberOfNeighbours = neighbours.Count;
             float averageHumidityOfNeighbours = sumHumidityOfNeighbours / numberOfNeighbours;
 
-            t.Humidity -= (1 - averageHumidityOfNeighbours);
+            t.Humidity = (t.Humidity + averageHumidityOfNeighbours) / 2;
+            t.Humidity -= EvaporationRate;
             t.Humidity = Mathf.Clamp01(t.Humidity);
         }
     }

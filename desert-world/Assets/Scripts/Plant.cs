@@ -14,35 +14,40 @@ public class Plant : MonoBehaviour
     public float Age = 0f;
     public Map Map;
     public float SeedRange;
-    private float localHumidity;
+    public float LocalHumidity = 1f;
+    TileGetter tileGetter;
 
     void Start ()
     {
         rend = GetComponentInChildren<SpriteRenderer>();
         rend.sprite = Seed;
         Map = GameObject.Find("Map").GetComponent<Map>();
-        localHumidity = Random.Range(0f, 1f);
+        tileGetter = GetComponent<TileGetter>();
     }
 
     public void Step()
     {
         Age++;
-        if (Age == 4f  && localHumidity >= 0.75f) {
+        if (Age == 4f  && LocalHumidity >= 0.5f) {
             Map.SpawnPlant(transform, SeedRange);
         }
-        if (Age == 4f && localHumidity >= 0.85f) {
+        if (Age == 4f && LocalHumidity >= 0.6f) {
             Map.SpawnPlant(transform, SeedRange);
         }
-        if (Age == 4f && localHumidity >= 0.95f) {
+        if (Age == 4f && LocalHumidity >= 0.7f) {
             Map.SpawnPlant(transform, SeedRange);
         }
-        if (Age == 5f || localHumidity <= 0.05f) gameObject.SetActive(false);
+        if (Age == 5f || LocalHumidity <= 0.05f) gameObject.SetActive(false);
+        if (Age == 6f) Destroy(gameObject);
     }
 
     private void Update () {
-        if (Age == 1f && localHumidity >= 0.25f) rend.sprite = PlantS;
-        if (Age == 2f && localHumidity >= 0.5f) rend.sprite = PlantM;
-        if (Age == 3f && localHumidity >= 0.75f) rend.sprite = PlantFruited;
-        if (Age == 4f || localHumidity < 0.25f) rend.sprite = PlantWithered;
+        if (tileGetter != null && tileGetter.TileCurrent != null) {
+            LocalHumidity = tileGetter.TileCurrent.Humidity;
+        }
+        if (Age == 1f && LocalHumidity >= 0.2f) rend.sprite = PlantS;
+        if (Age == 2f && LocalHumidity >= 0.3f) rend.sprite = PlantM;
+        if (Age == 3f && LocalHumidity >= 0.4f) rend.sprite = PlantFruited;
+        if (Age == 4f || LocalHumidity < 0.15f) rend.sprite = PlantWithered;
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5194312150071964534}
   - component: {fileID: 2646225992204782960}
+  - component: {fileID: -1381929974259695972}
   m_Layer: 8
   m_Name: Plant
   m_TagString: Untagged
@@ -58,6 +59,20 @@ MonoBehaviour:
   Age: 0
   Map: {fileID: 0}
   SeedRange: 0.5
+--- !u!114 &-1381929974259695972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2646225992204782961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afdf0dedde4c4842a6951b3e788c0ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TileCurrent: {fileID: 0}
+  BoundaryCurrent: {fileID: 0}
 --- !u!1 &5489541618632014252
 GameObject:
   m_ObjectHideFlags: 0

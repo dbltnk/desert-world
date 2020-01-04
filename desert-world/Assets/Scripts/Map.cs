@@ -15,6 +15,7 @@ public class Map : MonoBehaviour
     public int InitialPlantCount;
     public GameObject PrefPlant;
     public List<Plant> Plants;
+    public int MaxPlants = 100;
 
     // Start is called before the first frame update
     void Start ()
@@ -67,7 +68,7 @@ public class Map : MonoBehaviour
         for (int i = 0; i < InitialPlantCount;i++) {
             SpawnPlant();
         }
-        foreach (Plant p in Plants) p.Age = Random.Range(0, 5);
+        //foreach (Plant p in Plants) p.Age = Random.Range(0, 5);
     }
 
     public void SpawnPlant() {
@@ -80,6 +81,7 @@ public class Map : MonoBehaviour
     }
 
     public void SpawnPlant (Transform origin, float range) {
+        if (Plants.Count >= MaxPlants) return;
         GameObject p = Instantiate(PrefPlant);
         p.transform.SetParent(transform, false);
         float x = origin.transform.position.x + Random.Range(-range, range);

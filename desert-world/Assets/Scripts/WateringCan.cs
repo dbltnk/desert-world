@@ -9,7 +9,7 @@ public class WateringCan : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.Space)) {
-            TileGetter tg = GetComponent<TileGetter>();
+            TileGetterOld tg = GetComponent<TileGetterOld>();
             tg.TileCurrent.WaterTile();
         }
     }
